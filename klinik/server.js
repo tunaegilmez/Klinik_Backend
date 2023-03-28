@@ -3,7 +3,7 @@ import router from "./modules/routes.js";
 import cors from "cors";
 import db from "./db.js";
 import userRouter from "./modules/user/routes.js";
-// import("dotenv/config");
+import("dotenv/config");
 
 const app = express();
 const port = process.env.port || 3000;

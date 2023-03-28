@@ -1,9 +1,8 @@
 import Model from "./model.js";
 import { hashPassword, checkPassword } from "../utilities/bcrypt.js";
-// import Jwt from "jsonwebtoken";
+import Jwt from "jsonwebtoken";
 
 const getUserByEmail = async email => {
-  // console.log(email);
   return Model.User.findOne({ email });
 };
 
@@ -22,13 +21,11 @@ const signup = async (fullName, email, password) => {
 };
 
 const login = async (email, password) => {
-  console.log(email + password, "email - pass");
   try {
     let userExists;
 
     if (email) {
       userExists = await getUserByEmail(email);
-      console.log(userExists, "---UserExists---");
     }
 
     if (!userExists) {
@@ -40,7 +37,6 @@ const login = async (email, password) => {
       );
     }
 
-    console.log(userExists.password, "UserExists.Password---");
     let check = await checkPassword(userExists.password, password);
 
     if (!check) {
@@ -52,7 +48,17 @@ const login = async (email, password) => {
       );
     }
 
+    const token = Jwt.sign(
+      {
+        type: "user",
+        _id: userExists?._id?.toString(),
+        email: userExists.email,
+      },
+      process.env.JWT_CODE
+    );
+
     return {
+      token,
       userId: userExists._id,
       username: userExists.email,
     };
