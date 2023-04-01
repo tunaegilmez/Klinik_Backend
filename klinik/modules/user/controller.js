@@ -34,7 +34,42 @@ const login = async (req, res) => {
   }
 };
 
+const getUsers = async (req, res) => {
+  let { limit, skip } = req.query;
+
+  limit = !limit ? 10 : limit;
+  skip = !skip ? 0 : skip;
+  try {
+    let foundUsers = await Service.getUser(limit, skip);
+
+    return res.json({
+      status: true,
+      users: foundUsers.users, // BURAYI KONTROL ET !!!!!!!
+      count: foundUsers.count,
+    });
+  } catch (error) {
+    console.log("getUser error", error.message);
+  }
+};
+
+const getUserById = async (req, res) => {
+  let { userId } = req.params;
+
+  try {
+    let user = await Service.getUserById(userId);
+
+    return res.json({
+      status: true,
+      user,
+    });
+  } catch (error) {
+    console.log("getUserById error", error.message);
+  }
+};
+
 export default {
   signup,
   login,
+  getUsers,
+  getUserById,
 };

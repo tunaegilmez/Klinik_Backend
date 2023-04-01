@@ -1,5 +1,5 @@
 import express from "express";
-import { body } from "express-validator";
+import { body, query, param } from "express-validator";
 import validator from "../middlewares/validator.js";
 import Controller from "./controller.js";
 
@@ -17,6 +17,20 @@ router.post(
   body(["email", "password"]).exists().isString(),
   validator,
   Controller.login
+);
+
+router.get(
+  "/",
+  query(["limit", "skip"]).optional(),
+  validator,
+  Controller.getUsers
+);
+
+router.get(
+  "/:userId",
+  param("userId").exists(),
+  validator,
+  Controller.getUserById
 );
 
 export default router;

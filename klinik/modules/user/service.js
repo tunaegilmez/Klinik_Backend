@@ -68,7 +68,23 @@ const login = async (email, password) => {
   }
 };
 
+const getUser = async (limit, skip) => {
+  let users = await Model.User.find(
+    {},
+    {},
+    { limit, skip, sort: { updatedAt: -1 } }
+  );
+  let count = await Model.User.countDocuments({});
+  return { users, count };
+};
+
+const getUserById = async userId => {
+  return Model.User.findById(userId);
+};
+
 export default {
   signup,
   login,
+  getUser,
+  getUserById,
 };

@@ -1,0 +1,2 @@
+Ön tarafta login ve register sayfalarını yap.
+Admin hesabı ile giriş yapınca kullanıcıları listele, isActive değerlerini değiştirebilicek bir buton yap.
