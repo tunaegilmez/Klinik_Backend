@@ -67,9 +67,21 @@ const getUserById = async (req, res) => {
   }
 };
 
+const updateUserActive = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    let updatedUserActive = await Service.updateUserActive(userId);
+    return res.json({ status: true, updatedUserActive });
+  } catch (error) {
+    console.log("updateUserActive error", error);
+  }
+};
+
 export default {
   signup,
   login,
   getUsers,
   getUserById,
+  updateUserActive,
 };

@@ -26,6 +26,14 @@ router.get(
   Controller.getUsers
 );
 
+router.patch(
+  "/updateUserActive/:userId",
+  //todo: add route guard for this endpoint
+  param("userId").exists(),
+  validator,
+  Controller.updateUserActive
+);
+
 router.get(
   "/:userId",
   param("userId").exists(),

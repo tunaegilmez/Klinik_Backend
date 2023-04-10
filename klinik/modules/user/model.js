@@ -26,7 +26,7 @@ const User = mongoose.model(
         enum: ["user", "admin"],
       },
       isActive: {
-        type: String,
+        type: Boolean,
         default: false,
       },
     },

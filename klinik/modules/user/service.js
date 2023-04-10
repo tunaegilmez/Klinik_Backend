@@ -82,9 +82,20 @@ const getUserById = async userId => {
   return Model.User.findById(userId);
 };
 
+const updateUserActive = async userId => {
+  return Model.User.findByIdAndUpdate(
+    userId,
+    {
+      $set: { isActive: true },
+    },
+    { new: true }
+  );
+};
+
 export default {
   signup,
   login,
   getUser,
   getUserById,
+  updateUserActive,
 };
