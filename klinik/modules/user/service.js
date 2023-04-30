@@ -48,13 +48,16 @@ const login = async (email, password) => {
       );
     }
 
+    console.log(userExists);
+
     const token = Jwt.sign(
       {
-        type: "user",
+        type: userExists?.role,
         _id: userExists?._id?.toString(),
         email: userExists.email,
       },
-      process.env.JWT_CODE
+      process.env.JWT_CODE,
+      { expiresIn: 720 }
     );
 
     return {

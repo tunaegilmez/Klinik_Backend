@@ -1,1 +1,0 @@
-Admin hesabı ile giriş yapınca kullanıcıları listele, isActive değerlerini değiştirebilicek bir buton yap.

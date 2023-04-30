@@ -2,6 +2,7 @@ import express from "express";
 import { body, query, param } from "express-validator";
 import validator from "../middlewares/validator.js";
 import Controller from "./controller.js";
+import routeGuard from "..//middlewares/routeGuard.js";
 
 const router = express.Router();
 
@@ -29,6 +30,7 @@ router.get(
 router.patch(
   "/updateUserActive/:userId",
   //todo: add route guard for this endpoint
+  routeGuard,
   param("userId").exists(),
   validator,
   Controller.updateUserActive
