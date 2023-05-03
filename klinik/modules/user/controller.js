@@ -53,7 +53,7 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  let { userId } = req.params;
+  let userId = req?.admin ? req?.admin?.userId : req?.user?.userId;
 
   try {
     let user = await Service.getUserById(userId);
@@ -72,10 +72,18 @@ const updateUserActive = async (req, res) => {
 
   try {
     let updatedUserActive = await Service.updateUserActive(userId);
-    return res.json({ status: true, updatedUserActive });
+    if (req.admin) {
+      return res.json({ status: true, updatedUserActive });
+    } else {
+      console.log("Admin özel, Yetkin yok");
+    }
   } catch (error) {
     console.log("updateUserActive error", error);
   }
+};
+
+const checkType = async (req, res) => {
+  return res.json({ status: true, type: req?.admin ? "admin" : "user" });
 };
 
 export default {
@@ -84,4 +92,5 @@ export default {
   getUsers,
   getUserById,
   updateUserActive,
+  checkType,
 };

@@ -3,8 +3,6 @@ import jwt from "jsonwebtoken";
 function isAdmin(req, res, next) {
   const authHeader = req.headers.authorization;
 
-  console.log(authHeader);
-
   if (!authHeader) {
     return res.status(401).send("Erişim reddedildi. Yetki bulunamadı.");
   }
@@ -21,14 +19,8 @@ function isAdmin(req, res, next) {
     if (err) {
       return res.status(401).send("Erişim reddedildi. Geçersiz token.");
     }
-
-    if (decoded.type !== "admin") {
-      return res
-        .status(403)
-        .send("Erişim reddedildi. Bu işlem için yetkiniz yok.");
-    }
-
-    req.user = decoded;
+    console.log(decoded);
+    req[decoded.type] = decoded;
     next();
   });
 }

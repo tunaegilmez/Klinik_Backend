@@ -48,22 +48,21 @@ const login = async (email, password) => {
       );
     }
 
-    console.log(userExists);
-
     const token = Jwt.sign(
       {
         type: userExists?.role,
         _id: userExists?._id?.toString(),
-        email: userExists.email,
+        email: userExists?.email,
+        fullName: userExists?.fullName,
       },
-      process.env.JWT_CODE,
-      { expiresIn: 720 }
+      process.env.JWT_CODE
     );
 
     return {
       token,
       userId: userExists._id,
-      username: userExists.email,
+      email: userExists.email,
+      fullName: userExists.fullName,
     };
   } catch (error) {
     console.log("login error", error.message);
@@ -75,7 +74,7 @@ const getUser = async (limit, skip) => {
   let users = await Model.User.find(
     {},
     {},
-    { limit, skip, sort: { updatedAt: -1 } }
+    { limit, skip, sort: { fullName: 1 } }
   );
   let count = await Model.User.countDocuments({});
   return { users, count };

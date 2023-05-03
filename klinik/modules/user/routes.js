@@ -36,11 +36,8 @@ router.patch(
   Controller.updateUserActive
 );
 
-router.get(
-  "/:userId",
-  param("userId").exists(),
-  validator,
-  Controller.getUserById
-);
+router.get("/", routeGuard, validator, Controller.getUserById);
+
+router.get("/checkType", routeGuard, validator, Controller.checkType);
 
 export default router;
