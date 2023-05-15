@@ -3,6 +3,7 @@ import express from "express";
 import db from "./db.js";
 import router from "./modules/routes.js";
 import userRouter from "./modules/user/routes.js";
+import eventRouter from "./modules/Event/routes.js";
 import("dotenv/config");
 
 const app = express();
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRouter);
+app.use("/event", eventRouter);
 
 db.on("connected", () => {
   console.log("mongo connected");
