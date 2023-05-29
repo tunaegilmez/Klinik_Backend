@@ -29,11 +29,18 @@ router.get(
 
 router.patch(
   "/updateUserActive/:userId",
-  //todo: add route guard for this endpoint
   routeGuard,
   param("userId").exists(),
   validator,
   Controller.updateUserActive
+);
+
+router.patch(
+  "/updateUserPayment/:userId",
+  routeGuard,
+  param("userId").exists(),
+  validator,
+  Controller.updateUserPayment
 );
 
 router.get("/", routeGuard, validator, Controller.getUserById);

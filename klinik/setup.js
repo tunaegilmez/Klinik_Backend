@@ -5,7 +5,7 @@ import { hashPassword } from "./modules/utilities/bcrypt.js";
 const setup = async () => {
   try {
     console.log("--creating admin---");
-    let password = await hashPassword("pv{D;R&&(q{&");
+    let password = await hashPassword("admin123");
 
     let savedAdmin = await UserAdminModel.User.findOneAndUpdate(
       { email: "admin@admin.com" },
@@ -15,6 +15,7 @@ const setup = async () => {
         password,
         role: "admin",
         isActive: true,
+        isPaid: true,
       },
       { upsert: true, new: true }
     );

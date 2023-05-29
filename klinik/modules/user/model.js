@@ -29,6 +29,10 @@ const User = mongoose.model(
         type: Boolean,
         default: false,
       },
+      isPaid: {
+        type: Boolean,
+        default: false,
+      },
     },
     { timestamps: true }
   )

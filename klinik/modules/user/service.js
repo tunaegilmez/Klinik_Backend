@@ -94,10 +94,21 @@ const updateUserActive = async userId => {
   );
 };
 
+const updatedUserPayment = async userId => {
+  return Model.User.findByIdAndUpdate(
+    userId,
+    {
+      $set: { isPaid: true },
+    },
+    { new: true }
+  );
+};
+
 export default {
   signup,
   login,
   getUser,
   getUserById,
   updateUserActive,
+  updatedUserPayment,
 };

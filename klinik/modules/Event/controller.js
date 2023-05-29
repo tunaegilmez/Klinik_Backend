@@ -60,6 +60,9 @@ const deleteEvent = async (req, res) => {
   const { eventId } = req.params;
 
   try {
+    if (!req.admin) {
+      throw new Error("You're not an admin.");
+    }
     await Service.deleteEvent(eventId);
     return res.json({
       status: true,
@@ -74,6 +77,9 @@ const updateEvent = async (req, res) => {
   const { eventId } = req.params;
 
   try {
+    if (!req.admin) {
+      throw new Error("You're not an admin.");
+    }
     let updatedEvent = await Service.updateEvent(eventId, event);
     return res.json({
       status: true,

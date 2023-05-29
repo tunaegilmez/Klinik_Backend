@@ -82,6 +82,21 @@ const updateUserActive = async (req, res) => {
   }
 };
 
+const updateUserPayment = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    let updatedUserPayment = await Service.updatedUserPayment(userId);
+    if (req.admin) {
+      return res.json({ status: true, updatedUserPayment });
+    } else {
+      console.log("Admin özel, Yetkin yok");
+    }
+  } catch (error) {
+    console.log("updatedUserPayment error", error);
+  }
+};
+
 const checkType = async (req, res) => {
   return res.json({ status: true, type: req?.admin ? "admin" : "user" });
 };
@@ -92,5 +107,6 @@ export default {
   getUsers,
   getUserById,
   updateUserActive,
+  updateUserPayment,
   checkType,
 };
