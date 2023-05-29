@@ -1,10 +1,7 @@
 import Model from "./model.js";
 import moment from "moment";
-// import db from "../../db.js";
 
 const addEvent = async (user, trainer, startDate, endDate, title) => {
-  //   let session = await db.startSession();
-
   try {
     let isExistEvent = await Model.Event.findOne({
       startDate: {
@@ -22,8 +19,6 @@ const addEvent = async (user, trainer, startDate, endDate, title) => {
       );
     }
 
-    // session.startTransaction();
-
     let event = await new Model.Event({
       user,
       trainer,
@@ -35,8 +30,7 @@ const addEvent = async (user, trainer, startDate, endDate, title) => {
     return event;
   } catch (error) {
     console.log("addEvent service error", error.message);
-    // await session.abortTransaction();
-    // await session.endSession();
+
     throw new Error(
       JSON.stringify({
         en: error.message,
@@ -50,8 +44,6 @@ const getEvents = async (query = {}) => {
   const events = await Model.Event.find(query, {}).sort({
     eventDate: 1,
   });
-  //   .populate(["venue", "show", "category", "deal", "seatPlan"]);
-
   return { events };
 };
 
@@ -63,14 +55,7 @@ const deleteEvent = async eventId => {
   }
 };
 
-const updateEvent = async (
-  eventId,
-  user,
-  trainer,
-  startDate,
-  endDate,
-  title
-) => {
+const updateEvent = async (eventId, event) => {
   try {
     let isExistEvent = await Model.Event.findById(eventId);
 
@@ -83,11 +68,13 @@ const updateEvent = async (
       );
     }
 
-    return Model.Event.findOneAndUpdate(
+    let updatedEvent = await Model.Event.findOneAndUpdate(
       { _id: isExistEvent._id },
-      { user, trainer, startDate, endDate, title },
+      { ...event },
       { new: true }
     );
+
+    return updatedEvent;
   } catch (error) {
     throw new Error(error.message);
   }

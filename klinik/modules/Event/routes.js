@@ -34,8 +34,7 @@ router.put(
   "/:eventId",
   routeGuard,
   param("eventId").exists(),
-  body(["startDate", "endDate"]).exists(),
-  body(["user", "trainer", "title"]).optional(),
+  body(["event"]).exists(),
   validator,
   Controller.updateEvent
 );

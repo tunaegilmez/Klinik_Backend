@@ -9,8 +9,6 @@ function isAdmin(req, res, next) {
 
   const token = authHeader.split(" ")[1];
 
-  console.log("TOKEN---", token);
-
   if (!token) {
     return res.status(401).send("Erişim reddedildi. Token bulunamadı.");
   }
@@ -19,7 +17,7 @@ function isAdmin(req, res, next) {
     if (err) {
       return res.status(401).send("Erişim reddedildi. Geçersiz token.");
     }
-    console.log(decoded);
+
     req[decoded.type] = decoded;
     next();
   });

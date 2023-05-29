@@ -70,18 +70,11 @@ const deleteEvent = async (req, res) => {
 };
 
 const updateEvent = async (req, res) => {
-  const { user, trainer, startDate, endDate, title } = req.body;
+  const { event } = req.body;
   const { eventId } = req.params;
 
   try {
-    let updatedEvent = await Service.updateEvent(
-      eventId,
-      user,
-      trainer,
-      startDate,
-      endDate,
-      title
-    );
+    let updatedEvent = await Service.updateEvent(eventId, event);
     return res.json({
       status: true,
       updatedEvent,
