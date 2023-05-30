@@ -43,7 +43,7 @@ router.patch(
   Controller.updateUserPayment
 );
 
-router.get("/", routeGuard, validator, Controller.getUserById);
+router.get("/:userId", routeGuard, validator, Controller.getUserById);
 
 router.get("/checkType", routeGuard, validator, Controller.checkType);
 

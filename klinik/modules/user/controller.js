@@ -53,8 +53,7 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  let userId = req?.admin ? req?.admin?.userId : req?.user?.userId;
-
+  let userId = req?.admin ? req?.admin?._id : req?.user?._id;
   try {
     let user = await Service.getUserById(userId);
 
