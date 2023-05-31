@@ -104,6 +104,18 @@ const updatedUserPayment = async userId => {
   );
 };
 
+const addPackageType = async (userId, packageType) => {
+  return Model.User.findByIdAndUpdate(
+    userId,
+    {
+      $set: { packageType },
+    },
+    {
+      new: true,
+    }
+  );
+};
+
 export default {
   signup,
   login,
@@ -111,4 +123,5 @@ export default {
   getUserById,
   updateUserActive,
   updatedUserPayment,
+  addPackageType,
 };

@@ -100,6 +100,23 @@ const checkType = async (req, res) => {
   return res.json({ status: true, type: req?.admin ? "admin" : "user" });
 };
 
+const packageType = async (req, res) => {
+  const { userId } = req.params;
+  const { packageType } = req.body;
+
+  try {
+    let addedPackageType = await Service.addPackageType(userId, packageType);
+    if (req.admin) {
+      return res.json({ status: true, addedPackageType });
+    } else {
+      console.log("Admin özel, Yetkin yok");
+      throw Error("Admin özel, Yetkin yok");
+    }
+  } catch (error) {
+    return res.json({ status: false, message: error.message });
+  }
+};
+
 export default {
   signup,
   login,
@@ -108,4 +125,5 @@ export default {
   updateUserActive,
   updateUserPayment,
   checkType,
+  packageType,
 };

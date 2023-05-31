@@ -33,6 +33,11 @@ const User = mongoose.model(
         type: Boolean,
         default: false,
       },
+      packageType: {
+        type: String,
+        default: "0",
+        enum: ["0", "8", "12"],
+      },
     },
     { timestamps: true }
   )

@@ -46,4 +46,13 @@ router.patch(
 router.get("/checkType", routeGuard, validator, Controller.checkType);
 
 router.get("/:userId", routeGuard, validator, Controller.getUserById);
+
+router.patch(
+  "/packageType/:userId",
+  routeGuard,
+  param("userId").exists(),
+  body(["packageType"]).exists(),
+  validator,
+  Controller.packageType
+);
 export default router;
