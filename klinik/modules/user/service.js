@@ -104,16 +104,29 @@ const updatedUserPayment = async userId => {
   );
 };
 
-const addPackageType = async (userId, packageType) => {
-  return Model.User.findByIdAndUpdate(
-    userId,
-    {
-      $set: { packageType },
-    },
-    {
-      new: true,
+const updatePackageType = async (userId, packageType) => {
+  try {
+    let isExistEvent = await Model.User.findById(userId);
+
+    if (!isExistEvent) {
+      throw new Error(
+        JSON.stringify({
+          en: "User is not found.",
+          tr: "Kullanıcı bulunamadı.",
+        })
+      );
     }
-  );
+
+    let updatedPackageType = await Model.User.findOneAndUpdate(
+      { _id: isExistEvent._id },
+      { packageType },
+      { new: true }
+    );
+
+    return updatedPackageType;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 export default {
@@ -123,5 +136,5 @@ export default {
   getUserById,
   updateUserActive,
   updatedUserPayment,
-  addPackageType,
+  updatePackageType,
 };

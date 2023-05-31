@@ -105,7 +105,7 @@ const packageType = async (req, res) => {
   const { packageType } = req.body;
 
   try {
-    let addedPackageType = await Service.addPackageType(userId, packageType);
+    let addedPackageType = await Service.updatePackageType(userId, packageType);
     if (req.admin) {
       return res.json({ status: true, addedPackageType });
     } else {
